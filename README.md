@@ -1,6 +1,9 @@
 # Terraform to setup DNS for Redis Enterprise
 
 
+This terraform module will properly delegate a subdomain to Redis Enterprise.
+
+It creates all of the A records and NS records necessary
 
 Example usage:
 
@@ -17,4 +20,6 @@ module "dns" {
 ```
 
 If tester-records is set a tester-$cluster-prefix-$zone-name record will be created.
+
+
 This is mainly used for a node to run memtier benchmark
