@@ -14,7 +14,7 @@ resource "aws_route53_record" "a" {
 resource "aws_route53_record" "glue" {
   count   = length(var.node-external-ips)
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = "ns${count.index}.${var.cluster-prefix}.${var.zone-name}."
+  name    = "ns${count.index + 1}.${var.cluster-prefix}.${var.zone-name}."
   type    = "A"
   ttl     = "300"
   records = [element(var.node-external-ips, count.index)]
@@ -25,5 +25,5 @@ resource "aws_route53_record" "ns" {
   name    = "${var.cluster-prefix}.${var.zone-name}"
   type    = "NS"
   ttl     = "300"
-  records = formatlist("ns%s.${var.cluster-prefix}.${var.zone-name}", range(length(var.node-external-ips)))
+  records = formatlist("ns%s.${var.cluster-prefix}.${var.zone-name}", range(1, length(var.node-external-ips) + 1))
 }
